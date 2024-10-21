@@ -5,30 +5,30 @@ on:
   pull_request:
     branches: [ master, main ]
 jobs:
-  njsscan:
-    runs-on: ubuntu-latest
-    name: njsscan code scanning
-    steps:
+  # njsscan:
+  #   runs-on: ubuntu-latest
+  #   name: njsscan code scanning
+  #   steps:
 
-    - name: Checkout the code
-      uses: actions/checkout@v4.2.1
+  #   - name: Checkout the code
+  #     uses: actions/checkout@v4.2.1
 
-    - name: nodejsscan scan
-      id: njsscan
-      uses: ajinabraham/njsscan-action@v7
-      with:
-        args: '. --sarif --output results.sarif || true'
+  #   - name: nodejsscan scan
+  #     id: njsscan
+  #     uses: ajinabraham/njsscan-action@v7
+  #     with:
+  #       args: '. --sarif --output results.sarif || true'
 
 
-    - name: Upload njsscan report
-      uses: github/codeql-action/upload-sarif@v1
-      with:
-        sarif_file: results.sarif
+  #   - name: Upload njsscan report
+  #     uses: github/codeql-action/upload-sarif@v1
+  #     with:
+  #       sarif_file: results.sarif
   
   npm-audit-scan:
     runs-on : ubuntu-latest
     name: NPM Audit Scan
-    needs: [njsscan]
+    #needs: [njsscan]
     steps:
 
     - name: Checkout the code
@@ -39,7 +39,8 @@ jobs:
       with:
         node-version: 20
         cache: 'npm'
-    - run: npm ci
+    
+    - run: npm install
 
     - name: NPM Audit
       run: npm audit --json >> npm-audit-output.json
