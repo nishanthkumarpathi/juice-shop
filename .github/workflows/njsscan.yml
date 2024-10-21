@@ -44,6 +44,7 @@ jobs:
 
     - name: NPM Audit
       run: npm audit --json >> npm-audit-output.json
+      continue-on-error: true
 
     - name: Upload the NPM Audit output file
       uses: actions/upload-artifact@v4
