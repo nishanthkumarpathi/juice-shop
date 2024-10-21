@@ -28,7 +28,7 @@ jobs:
   npm-audit-scan:
     runs-on : ubuntu-latest
     name: NPM Audit Scan
-    depends: njsscan
+    depends: [njsscan]
     steps:
 
     - name: Checkout the code
