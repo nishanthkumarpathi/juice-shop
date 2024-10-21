@@ -9,13 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     name: njsscan code scanning
     steps:
+
     - name: Checkout the code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4.2.1
+
     - name: nodejsscan scan
       id: njsscan
-      uses: ajinabraham/njsscan-action@master
+      uses: ajinabraham/njsscan-action@v7
       with:
         args: '. --sarif --output results.sarif || true'
+
+        
     - name: Upload njsscan report
       uses: github/codeql-action/upload-sarif@v1
       with:
