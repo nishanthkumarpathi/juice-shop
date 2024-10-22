@@ -20,14 +20,33 @@ jobs:
         args: '. --sarif --output results.sarif || true'
 
     - name: Upload njsscan report
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: results.sarif
+
+  semgrep:
+    runs-on: ubuntu-latest
+    name: Semgrep Scan
+    steps:
+      - name: Checkout the Code
+        uses: actions/checkout@v4.2.1
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Semgrep Scan
+        run: semgrep scan --output=semgrep.sarif --sarif
+        continue-on-error: true
+
+      - name: Upload Semgrep Report
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
 
   npm-audit-scan:
     runs-on: ubuntu-latest
     name: NPM Audit Scan
-    needs: [njsscan]
+    needs: [njsscan, semgrep]
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4.2.1
