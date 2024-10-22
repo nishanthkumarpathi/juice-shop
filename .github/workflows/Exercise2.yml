@@ -1,0 +1,26 @@
+name: Docker Based Images
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  semgrep-full:
+    runs-on: ubuntu-latest
+    name: Semgrep Scan
+    container:
+      image: returntocorp/semgrep
+
+    steps:
+      - name: Checkout the Code
+        uses: actions/checkout@v4.2.1
+
+      - name: Semgrep Scan
+        run:  semgrep --sarif --output report.sarif
+        continue-on-error: true
+
+      - name: Publish code scanning alerts
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: report.sarif
