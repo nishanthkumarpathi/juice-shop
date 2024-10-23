@@ -18,9 +18,9 @@ jobs:
 
       - uses: hadolint/hadolint-action@v3.1.0
         with:
-        dockerfile: Dockerfile
-        output-file: dockerscan-results.sarif
-        format: sarif
+          dockerfile: Dockerfile
+          output-file: dockerscan-results.sarif
+          format: sarif
 
       - name: Upload Dockerscan Results
         uses: github/codeql-action/upload-sarif@v3
