@@ -1,9 +1,9 @@
 name: Hadolint Scan for Docker Files
 on:
-  push:
-    branches: [master, main]
-  pull_request:
-    branches: [master, main]
+  # push:
+  #   branches: [master, main]
+  # pull_request:
+  #   branches: [master, main]
 
 jobs:
   hadolint:
