@@ -1,0 +1,28 @@
+name: Hadolint Scan for Docker Files
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    name: Hadolint Scan for Docker Files
+    # container:
+    #   image: hadolint/hadolint
+
+    steps:
+      - name: Checkout the Code
+        uses: actions/checkout@v4.2.1
+
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+        dockerfile: Dockerfile
+        output-file: dockerscan-results.sarif
+        format: sarif
+
+      - name: Upload Dockerscan Results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: dockerscan-results.sarif
