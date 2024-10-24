@@ -1,7 +1,7 @@
 name: Build Docker Image and Scan with Trivy
-on:
-  push:
-    branches: [main, master]
+# on:
+#   push:
+#     branches: [main, master]
 
 jobs:
   build-and-scan-trivy:
